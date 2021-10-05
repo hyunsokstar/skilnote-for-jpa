@@ -3,8 +3,16 @@ from .models import Profile
 from django import forms
 
 class SignupForm(UserCreationForm):
-    phone = forms.CharField()
-    address = forms.CharField()
+
+
+    lecture_url = forms.CharField(strip=False, required=False)
+    github_original = forms.CharField(strip=False, required=False)
+    github1 = forms.CharField(strip=False, required=False)
+    github2 = forms.CharField(strip=False, required=False)
+    github3 = forms.CharField(strip=False, required=False)
+    github4 = forms.CharField(strip=False, required=False)
+    email = forms.CharField(strip=False, required=False)
+    phone = forms.CharField(strip=False, required=False)
 
     class Meta(UserCreationForm.Meta):
         fields = UserCreationForm.Meta.fields
@@ -14,7 +22,13 @@ class SignupForm(UserCreationForm):
         profile = Profile.objects.create(
             user = user,
             phone = self.cleaned_data['phone'],
-            address = self.cleaned_data['address']
+            lecture_url = self.cleaned_data['lecture_url'],
+            email = self.cleaned_data['email'],
+            github_original = self.cleaned_data['github_original'],
+            github1 = self.cleaned_data['github1'],
+            github2 = self.cleaned_data['github2'],
+            github3 = self.cleaned_data['github3'],
+            github4 = self.cleaned_data['github4'],
 		)
         return user
 
