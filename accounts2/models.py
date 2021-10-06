@@ -23,6 +23,7 @@ class Profile(models.Model):
     skill_note_reputation = models.IntegerField(default=0) # skill note 유저 리스트 점수 추가할때 계산됨
     completecount = models.IntegerField(default=0)
     uncompletecount = models.IntegerField(default=0)
+    click_count = models.IntegerField(default=0)
 
 
 class HistoryForUpdate(models.Model):

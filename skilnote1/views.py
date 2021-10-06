@@ -171,7 +171,6 @@ def delete_guest_book_list(request,id):
     else:
         return redirect('/skilnote1/myshorcut/')
 
-# 로그인 안했으면 로그인 페이지로 이동하도록 수정 하기 1122
 def insert_for_guest_book(request):
     print("insert_for_guest_book 실행")
     category_id = request.user.profile.selected_category_id
@@ -228,6 +227,7 @@ def new_comment_for_skilpage(request, user_name, category_id):
     else:
         return redirect('/skilnote1/myshortcut/'+user_name+"/"+category_id)
 
+# 리스트 조회할때 click_count +1 하도록 하기 1122
 class MyShortcutListByUser(ListView):
     model = MyShortCut
     paginate_by = 20
@@ -237,7 +237,6 @@ class MyShortcutListByUser(ListView):
     def get_queryset(self):
         user = self.kwargs['user']
         user = User.objects.get(username=user)
-
 
         category_id = self.kwargs['category_id']
 
@@ -265,6 +264,10 @@ class MyShortcutListByUser(ListView):
             context = super(MyShortcutListByUser, self).get_context_data(**kwargs)
             context['category_list'] = Category.objects.all()
 
+            print("클릭 카운트 업데이트 +1")
+            click_count_update_result = Profile.objects.filter(Q(user=user)).update(click_count = F('click_count') + 1)
+
+
             # category = Category.objects.get(id=user.profile.selected_category_id)
             category = Category.objects.get(id=category_id)
             context['category'] = category
@@ -281,9 +284,6 @@ class MyShortcutListByUser(ListView):
 
 
 def category_plus_1_for_current_user(request):
-    # is this possible?
-    # for x in range(i, 98)
-    #     CategoryNick.obejcts.filter(author=request.user).update("ca"+(x+1)=F('ca'+x))
 
     ca_num = request.POST['current_ca_num'] # 입력한 ca 번호
     print("ca_num : ", ca_num)

@@ -29,6 +29,7 @@
         <td>git4</td>
         <td>update</td>
         <td>recent</td>
+        <td>조회수</td>
         <td>기타</td>
     </tr>
 
@@ -37,6 +38,7 @@
         <tr>
 
             <td id=user_name_{{u.id}}>
+              <!-- 클릭했을때 조회수 +1 and http://www.skilnote-for-jpa.co.kr/skilnote1/myshortcut/{{u.username}}/1 로 이동 -->
                 <a href="http://www.skilnote-for-jpa.co.kr/skilnote1/myshortcut/{{u.username}}/1" title={{u.profile.phone}}>
                     {{u.username}}
                 </a>
@@ -113,6 +115,7 @@
             {% if u.username == request.user.username %}
             {% else %}
             {% endif %}
+            <td>{{u.profile.click_count}}</td>
             <td>
               <button type="button" data-username={{u.username}} class="btn btn-sm btn-outline-dark guest_book_list_btn">기타</button>
             </td>
