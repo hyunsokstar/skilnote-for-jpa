@@ -159,17 +159,27 @@ def user_profile_information_view(request,user):
     })
 
 
+          # profile_id : profile_id,
+          # profile_user : profile_user,
+    		# 	profile_email: profile_email,
+			# 		profile_github_original: profile_github_original,
+			# 		profile_github1: profile_github1,
+			# 		profile_github2: profile_github2,
+			# 		profile_github3: profile_github3,
+			# 		profile_github4: profile_github4,
+			# 		profile_public: profile_public
+
 def update_for_profile(request,id):
     user = request.user
     if request.method == "POST" and request.is_ajax():
         profile_user = request.POST.get('profile_user','')
         profile_email = request.POST.get('profile_email','')
+        profile_github_original = request.POST.get('profile_github_original','')
+        profile_github1 = request.POST.get('profile_github1','')
+        profile_github2 = request.POST.get('profile_github2','')
+        profile_github3 = request.POST.get('profile_github3','')
+        profile_github4 = request.POST.get('profile_github4','')
         profile_public = request.POST.get('profile_public','')
-        profile_github = request.POST.get('profile_github','')
-        profile_site1 = request.POST.get('profile_site1','')
-        profile_site2 = request.POST.get('profile_site2','')
-        profile_site3 = request.POST.get('profile_site3','')
-        profile_site4 = request.POST.get('profile_site4','')
         profile_id = request.POST.get('profile_id','')
 
         print("update_for_profile (view) 실행")
@@ -192,14 +202,14 @@ def update_for_profile(request,id):
 
         profile = Profile.objects.filter(id=profile_id).update(
             email = profile_email,
-            public = profile_public,
-            github = profile_github,
-            site1 = profile_site1,
-            site2 = profile_site2,
-            site3 = profile_site3,
-            site4 = profile_site4)
+            github_original = profile_github_original,
+            github1 = profile_github1,
+            github2 = profile_github2,
+            github3 = profile_github3,
+            github4 = profile_github4,
+            public = profile_public
+            )
         print('update_for_profile Success !!!!!!!!!');
-
         return JsonResponse({
             'message': 'MyProfile Update Success',
         })

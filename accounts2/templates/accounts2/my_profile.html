@@ -12,7 +12,7 @@
 	<tr>
 		<td width="20%">user_name</td>
 		<td>
-			
+
 			<div class="input-group mb-1">
 				<input type="text" class="form-control" value="{{request.user}}" id="profile_user"
 				       aria-describedby="basic-addon2"></input>
@@ -20,7 +20,7 @@
 					<button class="btn btn-outline-secondary" type="button">중복 검사</button>
 				</div>
 			</div>
-		
+
 		</td>
 	</tr>
 	<tr>
@@ -33,9 +33,53 @@
 					<button class="btn btn-outline-secondary" type="button">수정</button>
 				</div>
 			</div>
-		
+
 		</td>
 	</tr>
+
+	<tr>
+		<td> github-original</td>
+		<td>
+			<input type="text" class="form-control" value="{{request.user.profile.github_original}}"
+			       aria-describedby="basic-addon2" id="profile_github_original"></input>
+			</div>
+		</td>
+
+	</tr>
+
+	<tr>
+		<td>github1</td>
+		<td>
+			<input type="text" class="form-control" value="{{request.user.profile.github1}}"
+			       aria-describedby="basic-addon2" id="profile_github1"></input>
+		</td>
+	</tr>
+
+	<tr>
+		<td>github2</td>
+		<td>
+			<input type="text" class="form-control" value="{{request.user.profile.github2}}"
+			       aria-describedby="basic-addon2" id="profile_github2"></input>
+
+		</td>
+	</tr>
+
+	<tr>
+		<td>github3</td>
+		<td>
+			<input type="text" class="form-control" value="{{request.user.profile.github3}}"
+			       aria-describedby="basic-addon2" id="profile_github3"></input>
+		</td>
+	</tr>
+
+	<tr>
+		<td>github4</td>
+		<td>
+			<input type="text" class="form-control" value="{{request.user.profile.github4}}"
+			       aria-describedby="basic-addon2" id="profile_github4"></input>
+		</td>
+	</tr>
+
 	<tr>
 		<td> public</td>
 		<td>
@@ -47,54 +91,6 @@
 				</div>
 			</div>
 		</td>
-	</tr>
-	
-	<tr>
-		<td> github</td>
-		<td>
-			<input type="text" class="form-control" value="{{request.user.profile.github}}"
-			       aria-describedby="basic-addon2" id="profile_github"></input>
-			</div>
-		</td>
-	
-	</tr>
-	
-	<tr>
-		<td>site1</td>
-		<td>
-			<input type="text" class="form-control" value="{{request.user.profile.site1}}"
-			       aria-describedby="basic-addon2" id="profile_site1"></input>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>site2</td>
-		<td>
-			<input type="text" class="form-control" value="{{request.user.profile.site2}}"
-			       aria-describedby="basic-addon2" id="profile_site2"></input>
-		
-		</td>
-	</tr>
-	
-	<tr>
-		<td>site3</td>
-		<td>
-			<input type="text" class="form-control" value="{{request.user.profile.site3}}"
-			       aria-describedby="basic-addon2" id="profile_site3"></input>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>site4</td>
-		<td>
-			<input type="text" class="form-control" value="{{request.user.profile.site4}}"
-			       aria-describedby="basic-addon2" id="profile_site4"></input>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>reputation</td>
-		<td> {{ request.user.recommandationuseraboutskillnote_set.count }} 점</td>
 	</tr>
 
 </table>
@@ -112,20 +108,20 @@
 {% block sidearea %}
 나를 추천한 사람들:
 <table class="table table-bordered">
-	
+
 	{% for liker in request.user.recommandationuseraboutskillnote_set.all %}
 	<tr id="lier_for_me_{{liker.id}}">
 		<td>
 			<a href="/accounts/user_profile_information_view/{{liker.author_id.username}}">
 				{{ liker.author_id }}
 			</a>
-			
+
 			<a>
 				<img class="delete_for_liker_user_for_me float-right" src="{% static 'icon/x_mark.png' %}"
 				     data-target_user_id="{{request.user.id}}" data-author_id="{{liker.author_id.id}}"
 				     data-row_id="{{liker.id}}">
 			</a>
-		
+
 		</td>
 	</tr>
 	{% endfor %}
@@ -135,7 +131,7 @@
 
 내가 추천한 사람들:
 <table class="table table-bordered">
-	
+
 	{% for my_favorite_user in my_favorite_user_list %}
 	<tr id="myFavorite_{{my_favorite_user.id}}">
 		<td>
@@ -254,18 +250,17 @@ $('body').on('click', '#delete_login_user_btn', function (e) {
 });
 
 $('body').on('click', '#update_complete_button_for_profile', function (e) {
-	e.preventDefault();
+		e.preventDefault();
     // alert("update button click")
-
+		var profile_id = $(this).data("id");
     var profile_user = $("#profile_user").val();
     var profile_email = $("#profile_email").val();
-    var profile_github = $("#profile_github").val();
-    var profile_public = $("#profile_public").val();
-    var profile_site1 = $("#profile_site1").val();
-    var profile_site2 = $("#profile_site2").val();
-    var profile_site3 = $("#profile_site3").val();
-    var profile_site4 = $("#profile_site4").val();
-    var profile_id = $(this).data("id");
+    var profile_github_original = $("#profile_github_original").val();
+    var profile_github1 = $("#profile_github1").val();
+    var profile_github2 = $("#profile_github2").val();
+    var profile_github3 = $("#profile_github3").val();
+    var profile_github4 = $("#profile_github4").val();
+		var profile_public = $("#profile_public").val();
 
     console.log("profile_id : ", profile_id);
 
@@ -275,31 +270,25 @@ $('body').on('click', '#update_complete_button_for_profile', function (e) {
     		type: "POST",
     		url: '/accounts/update_for_profile/' + profile_id,
     		data: {
-
-                profile_id : profile_id,
-                profile_user : profile_user,
+          profile_id : profile_id,
+          profile_user : profile_user,
     			profile_email: profile_email,
-    			profile_github: profile_github,
-    			profile_public: profile_public,
-    			profile_site1: profile_site1,
-    			profile_site2: profile_site2,
-    			profile_site3: profile_site3,
-    			profile_site4: profile_site4,
+					profile_github_original: profile_github_original,
+					profile_github1: profile_github1,
+					profile_github2: profile_github2,
+					profile_github3: profile_github3,
+					profile_github4: profile_github4,
+					profile_public: profile_public,
     			csrfmiddlewaretoken: '{{ csrf_token }}'
     		},
     		success: function (result) {
+					console.log("hi");
     			alert(result.message)
     		}
     	});
-
     }else{
-
         alert("profile_public은 yes or no 이어야 합니다");
     }
-
-
-
-
 });
 
 {% endblock %}
